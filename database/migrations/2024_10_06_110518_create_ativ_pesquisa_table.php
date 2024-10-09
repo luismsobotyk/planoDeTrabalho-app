@@ -12,12 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('ativ_pesquisa', function (Blueprint $table) {
-            $table->id();
+            $table->id()->autoIncrement();
             $table->string('descricao');
             $table->float('carga_horaria');
             $table->unsignedBigInteger('plano_id');
             $table->foreign('plano_id')->references('id')->on('plano');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

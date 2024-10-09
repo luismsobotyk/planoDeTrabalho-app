@@ -12,13 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('periodo', function (Blueprint $table) {
-            $table->id();
+            $table->id()->autoIncrement();
             $table->date('abertura');
             $table->date('fechamento');
             $table->string('semestre');
-            $table->unsignedBigInteger('cadastrado_por');
-            $table->foreign('cadastrado_por')->references('id')->on('usuario');
+            $table->string('cadastrado_por');
+            $table->foreign('cadastrado_por')->references('login')->on('usuario');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -12,13 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('plano', function (Blueprint $table) {
-            $table->id();
+            $table->id()->autoIncrement();
             $table->string('situacao');
             $table->unsignedBigInteger('periodo_id');
-            $table->unsignedBigInteger('revisado_por');
+            $table->string('revisado_por');
             $table->foreign('periodo_id')->references('id')->on('periodo');
-            $table->foreign('revisado_por')->references('id')->on('usuario');
+            $table->foreign('revisado_por')->references('login')->on('usuario');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

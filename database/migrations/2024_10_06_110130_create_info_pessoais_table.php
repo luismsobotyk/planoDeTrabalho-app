@@ -12,12 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('info_pessoais', function (Blueprint $table) {
-            $table->id();
+            $table->id()->autoIncrement();
             $table->string('categoria');
             $table->string('regime');
             $table->unsignedBigInteger('plano_id');
             $table->foreign('plano_id')->references('id')->on('plano');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
