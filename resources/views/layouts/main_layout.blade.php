@@ -7,10 +7,12 @@
     <link href="{{ asset('assets/bootstrap/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/login.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/images/favicon.ico') }}" rel="shortcut icon" type="image/vnd.microsoft.icon">
+    @yield('other-css-assets')
 </head>
 <body>
 @yield('content')
 
 <script src="{{ asset('assets/bootstrap/bootstrap.bundle.min.js') }}"></script>
+@yield('other-js-assets')
 </body>
 </html>
