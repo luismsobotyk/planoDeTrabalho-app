@@ -194,7 +194,8 @@
     <script>
         function addAula() {
             const container = document.getElementById('aulas-container');
-            const aula = `<div class="row mb-3">
+            const aulaId = Date.now(); // Gera um ID único
+            const aula = `<div class="row mb-3" id="aula-${aulaId}">
                         <div class="col-md-4">
                             <input type="text" class="form-control" placeholder="Disciplina" required>
                         </div>
@@ -204,15 +205,26 @@
                         <div class="col-md-4">
                             <input type="number" class="form-control" placeholder="Carga Horária" required>
                         </div>
+                        <div class="col-md-12 mt-2">
+                            <button type="button" class="btn btn-danger" onclick="removeAula(${aulaId})">Remover Aula</button>
+                        </div>
                     </div>`;
             container.insertAdjacentHTML('beforeend', aula);
         }
 
+        function removeAula(id) {
+            const aula = document.getElementById(`aula-${id}`);
+            if (aula) {
+                aula.remove();
+            }
+        }
+
         function addAtividade(tipo) {
             const container = document.getElementById(`${tipo}-container`);
+            const atividadeId = Date.now(); // Gera um ID único
             let atividade = '';
             if (tipo === 'adm') {
-                atividade = `<div class="row mb-3">
+                atividade = `<div class="row mb-3" id="${tipo}-${atividadeId}">
                             <div class="col-md-4">
                                 <input type="text" class="form-control" placeholder="Descrição" required>
                             </div>
@@ -222,18 +234,31 @@
                             <div class="col-md-4">
                                 <input type="number" class="form-control" placeholder="Carga Horária" required>
                             </div>
+                            <div class="col-md-12 mt-2">
+                                <button type="button" class="btn btn-danger" onclick="removeAtividade('${tipo}', ${atividadeId})">Remover Atividade</button>
+                            </div>
                         </div>`;
             } else {
-                atividade = `<div class="row mb-3">
+                atividade = `<div class="row mb-3" id="${tipo}-${atividadeId}">
                             <div class="col-md-6">
                                 <input type="text" class="form-control" placeholder="Descrição" required>
                             </div>
                             <div class="col-md-6">
                                 <input type="number" class="form-control" placeholder="Carga Horária" required>
                             </div>
+                            <div class="col-md-12 mt-2">
+                                <button type="button" class="btn btn-danger" onclick="removeAtividade('${tipo}', ${atividadeId})">Remover Atividade</button>
+                            </div>
                         </div>`;
             }
             container.insertAdjacentHTML('beforeend', atividade);
+        }
+
+        function removeAtividade(tipo, id) {
+            const atividade = document.getElementById(`${tipo}-${id}`);
+            if (atividade) {
+                atividade.remove();
+            }
         }
     </script>
 @endsection
