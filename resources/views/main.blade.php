@@ -6,18 +6,6 @@
 
 @section('other-css-assets')
     <style>
-        body {
-            background-color: #f8f9fa;
-        }
-        .navbar {
-            background-color: #33a047;
-        }
-        .navbar .nav-link, .navbar .navbar-brand {
-            color: white;
-        }
-        .navbar .nav-link:hover {
-            color: #c72027;
-        }
         .form-control:focus {
             border-color: #33a047;
             box-shadow: 0 0 0 0.2rem rgba(51, 160, 71, 0.25);
@@ -42,33 +30,6 @@
 @endsection
 
 @section('content')
-
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Serviço</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Meus Planos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Notificações</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Perfil</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Logout</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
     <!-- Formulário -->
     <div class="container mt-5">
         <h2 class="mb-4">Preenchimento de Atividades</h2>

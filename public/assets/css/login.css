@@ -1,6 +1,24 @@
 body {
     background-color: #f8f9fa;
 }
+body, html {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
+/* Área de conteúdo que se expande para ocupar o espaço restante */
+.content-wrapper {
+    flex: 1;
+}
+/* Estilo do rodapé */
+footer {
+    background-color: #f8f9fa;
+    text-align: center;
+    color: #6c757d;
+    padding: 10px 0;
+}
+
 .login-container {
     display: flex;
     justify-content: center;
