@@ -45,19 +45,25 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($planos as $plano)
+            @if($planos->isEmpty())
                 <tr>
-                    <td>{{ $plano->periodo }}</td>
-                    <td>{{ $plano->situacao }}</td>
-                    <td>
-                    @if($plano->situacao == 'Pendente')
-                        <a href="/preencher/1" class="btn btn-preencher">Preencher</a>
-                    @else
-                        <a href="#" class="btn btn-visualizar">Visualizar</a>
-                    @endif
-                    </td>
+                    <td colspan="3" class="text-center text-muted fst-italic">Nenhum plano encontrado</td>
                 </tr>
-            @endforeach
+            @else
+                @foreach($planos as $plano)
+                    <tr>
+                        <td>{{ $plano->periodo->semestre }}</td>
+                        <td>{{ $plano->situacao }}</td>
+                        <td>
+                            @if($plano->situacao == 'Pendente')
+                                <a href="{{ route('preencher', ['plano_id' => $plano->id]) }}" class="btn btn-preencher">Preencher</a>
+                            @else
+                                <a href="#" class="btn btn-visualizar">Visualizar</a>
+                            @endif
+                        </td>
+                    </tr>
+                @endforeach
+            @endif
             </tbody>
         </table>
     </div>

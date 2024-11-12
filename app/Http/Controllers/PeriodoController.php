@@ -49,7 +49,7 @@ class PeriodoController extends Controller
 
         foreach($docentes as $docente){
             Plano::create([
-                'situacao' => 'pendente',
+                'situacao' => 'Pendente',
                 'docente_id' => $docente->login,
                 'periodo_id' => $periodo->id
             ]);

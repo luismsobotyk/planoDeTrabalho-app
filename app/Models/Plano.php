@@ -14,4 +14,9 @@ class Plano extends Model
         'docente_id',
         'revisado_por'
     ];
+
+    public function periodo(){
+        return $this->belongsTo(Periodo::class);
+    }
+
 }

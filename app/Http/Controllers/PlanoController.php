@@ -2,28 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Plano;
 use Illuminate\Http\Request;
 
 class PlanoController extends Controller
 {
     public function meusPlanos(){
-        $planos = [
-            (object) [
-                'id' => 1,
-                'periodo' => '2024.2',
-                'situacao' => 'Pendente',
-            ],
-            (object) [
-                'id' => 2,
-                'periodo' => '2024.1',
-                'situacao' => 'Entregue',
-            ],
-            (object) [
-                'id' => 3,
-                'periodo' => '2023.2',
-                'situacao' => 'Entregue',
-            ],
-        ];
+        $planos = Plano::where('docente_id', session('user.login'))->get();
         return view('meusPlanos', compact('planos'));
     }
 
