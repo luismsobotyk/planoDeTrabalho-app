@@ -7,5 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Plano extends Model
 {
-    use HasFactory;
+    protected $table = 'plano';
+    protected $fillable = [
+        'situacao',
+        'periodo_id',
+        'docente_id',
+        'revisado_por'
+    ];
 }

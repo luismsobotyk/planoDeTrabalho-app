@@ -43,7 +43,7 @@ class AuthController extends Controller
             ]
         ]);
 
-        echo 'Login feito com sucesso';
+        return redirect()->to('meusPlanos');
     }
 
     public function logout(){

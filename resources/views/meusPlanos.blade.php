@@ -51,7 +51,7 @@
                     <td>{{ $plano->situacao }}</td>
                     <td>
                     @if($plano->situacao == 'Pendente')
-                        <a href="#" class="btn btn-preencher">Preencher</a>
+                        <a href="/preencher/1" class="btn btn-preencher">Preencher</a>
                     @else
                         <a href="#" class="btn btn-visualizar">Visualizar</a>
                     @endif

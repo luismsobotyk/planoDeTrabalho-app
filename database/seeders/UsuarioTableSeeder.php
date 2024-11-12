@@ -28,9 +28,9 @@ class UsuarioTableSeeder extends Seeder
                 'created_at' => now()
             ],
             [
-                'login' => 'docenteExemplo',
-                'nome' => 'Docente Exemplo',
-                'cargo' => 'docente',
+                'login' => 'deniriomarques',
+                'nome' => 'Denírio Marques',
+                'cargo' => 'admin',
                 'SIAPE' => 12345678,
                 'created_at' => now()
             ]

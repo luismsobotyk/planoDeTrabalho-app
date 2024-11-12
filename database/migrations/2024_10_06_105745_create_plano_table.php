@@ -15,8 +15,10 @@ return new class extends Migration
             $table->id()->autoIncrement();
             $table->string('situacao');
             $table->unsignedBigInteger('periodo_id');
-            $table->string('revisado_por');
+            $table->string('docente_id');
+            $table->string('revisado_por')->nullable()->default(null);
             $table->foreign('periodo_id')->references('id')->on('periodo');
+            $table->foreign('docente_id')->references('login')->on('usuario');
             $table->foreign('revisado_por')->references('login')->on('usuario');
             $table->timestamps();
             $table->softDeletes();
