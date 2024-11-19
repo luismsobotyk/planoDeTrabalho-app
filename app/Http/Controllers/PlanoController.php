@@ -49,13 +49,6 @@ class PlanoController extends Controller
 
         //deletar todas essas multiplas e resalvar sempre que atualiza pra nao precisar ficar procurando atualizacao
 
-        /*$periodo = Periodo::create([
-            'abertura' => $request->input('data_abertura'),
-            'fechamento' => $request->input('data_fechamento'),
-            'semestre' => $request->input('semestre'),
-            'cadastrado_por' => session('user.login')
-        ]);*/
-
         $infoPessoais = InfoPessoais::create([
             'categoria' => $request->input('categoria'),
             'regime' => $request->input('regime'),
@@ -63,7 +56,7 @@ class PlanoController extends Controller
         ]);
 
         $aulas = [];
-        if(count($aulasDisciplinas)>0){
+        if(isset($aulasDisciplinas) && count($aulasDisciplinas)>0){
             for($i = 0; $i < count($aulasDisciplinas); $i++){
                 $aulas[] = Aula::create([
                     'disciplina' => $aulasDisciplinas[$i],
@@ -77,7 +70,7 @@ class PlanoController extends Controller
         }
 
         $atividadesAdministrativas = [];
-        if(count($admDescricao)>0){
+        if(isset($admDescricao) && count($admDescricao)>0){
             for($i = 0; $i < count($admDescricao); $i++){
                 $atividadesAdministrativas[]= AtivAdministrativa::create([
                     'descricao' => $admDescricao[$i],
@@ -91,7 +84,7 @@ class PlanoController extends Controller
         }
 
         $atividadesExtensao = [];
-        if(count($extDescricao)>0){
+        if(isset($extDescricao) && count($extDescricao)>0){
             for($i = 0; $i < count($extDescricao); $i++){
                 $atividadesExtensao[]= AtivExtensao::create([
                     'descricao' => $extDescricao[$i],
@@ -104,7 +97,7 @@ class PlanoController extends Controller
         }
 
         $atividadesPesquisa = [];
-        if(count($pesqDescricao)>0){
+        if(isset($pesqDescricao) && count($pesqDescricao)>0){
             for($i = 0; $i < count($pesqDescricao); $i++){
                 $atividadesPesquisa[]= AtivPesquisa::create([
                     'descricao' => $pesqDescricao[$i],
@@ -117,7 +110,7 @@ class PlanoController extends Controller
         }
 
         $atividadesEnsino = [];
-        if(count($ensDescricao)>0){
+        if(isset($ensDescricao) && count($ensDescricao)>0){
             for($i = 0; $i < count($ensDescricao); $i++){
                 $atividadesEnsino[]= AtivEnsino::create([
                     'descricao' => $ensDescricao[$i],
@@ -129,6 +122,6 @@ class PlanoController extends Controller
             echo 'NENHUMA ATIVIDADE DE ENSINO INFORMADA';
         }
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Plano salvo com Sucesso!');
     }
 }

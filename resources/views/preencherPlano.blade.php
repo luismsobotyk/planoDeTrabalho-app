@@ -39,7 +39,11 @@
 
     <div class="container mt-5">
         <h2>Preenchendo Plano de Trabalho {{ $plano->periodo->semestre }}</h2>
-
+        @if(session('success'))
+            <div class="alert alert-success" role="alert">
+                {{ session('success') }}
+            </div>
+        @endif
         <!-- Formulário -->
         <form method="POST" action="{{ route('plano.create', ['plano_id' => $plano->id]) }}">
             @csrf
