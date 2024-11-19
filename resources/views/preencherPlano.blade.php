@@ -38,10 +38,10 @@
 @section('content')
 
     <div class="container mt-5">
-        <h2>Preenchendo Plano de Trabalho 2024/2</h2>
+        <h2>Preenchendo Plano de Trabalho {{ $plano->periodo->semestre }}</h2>
 
         <!-- Formulário -->
-        <form method="POST" action="#">
+        <form method="POST" action="{{ route('plano.create', ['plano_id' => $plano->id]) }}">
             @csrf
 
             <!-- Informações Pessoais -->
@@ -119,6 +119,7 @@
                 <button type="submit" class="btn btn-success w-100">Salvar</button>
                 <button type="button" class="btn btn-primary w-100 mt-2">Enviar para Avaliação</button>
             </div>
+            <input type="hidden" name="plano_id" value="{{ $plano->id }}">
         </form>
     </div>
 
@@ -131,13 +132,13 @@
             const aulaId = Date.now();
             const aula = `<div class="row mb-3" id="aula-${aulaId}">
                             <div class="col-md-4">
-                                <input type="text" name="disciplinas[]" class="form-control" placeholder="Disciplina" required>
+                                <input type="text" name="aulasDisciplinas[]" class="form-control" placeholder="Disciplina" required>
                             </div>
                             <div class="col-md-4">
-                                <input type="text" name="cursos[]" class="form-control" placeholder="Curso" required>
+                                <input type="text" name="aulasCursos[]" class="form-control" placeholder="Curso" required>
                             </div>
                             <div class="col-md-4">
-                                <input type="number" name="cargas_horarias[]" step="0.5" class="form-control" placeholder="Carga Horária" required>
+                                <input type="number" name="aulasCargasHorarias[]" step="0.5" class="form-control" placeholder="Carga Horária" required>
                             </div>
                             <div class="col-md-12 mt-2">
                                 <button type="button" class="btn btn-remove" onclick="removeItem('aula-${aulaId}')">Remover Aula</button>
@@ -153,13 +154,13 @@
             if (tipo === 'adm') {
                 atividade = `<div class="row mb-3" id="${tipo}-${atividadeId}">
                                 <div class="col-md-4">
-                                    <input type="text" name="${tipo}_descricao[]" class="form-control" placeholder="Descrição" required>
+                                    <input type="text" name="${tipo}Descricao[]" class="form-control" placeholder="Descrição" required>
                                 </div>
                                 <div class="col-md-4">
-                                    <input type="text" name="${tipo}_portaria[]" pattern="^\\d+/\\d{4}$" class="form-control" placeholder="Portaria (Ex: 1234/2024)" required>
+                                    <input type="text" name="${tipo}Portaria[]" pattern="^\\d+/\\d{4}$" class="form-control" placeholder="Portaria (Ex: 1234/2024)" required>
                                 </div>
                                 <div class="col-md-4">
-                                    <input type="number" name="${tipo}_carga_horaria[]" step="0.5" class="form-control" placeholder="Carga Horária" required>
+                                    <input type="number" name="${tipo}CargaHoraria[]" step="0.5" class="form-control" placeholder="Carga Horária" required>
                                 </div>
                                 <div class="col-md-12 mt-2">
                                     <button type="button" class="btn btn-remove" onclick="removeItem('${tipo}-${atividadeId}')">Remover Atividade</button>
@@ -168,10 +169,10 @@
             } else {
                 atividade = `<div class="row mb-3" id="${tipo}-${atividadeId}">
                                 <div class="col-md-6">
-                                    <input type="text" name="${tipo}_descricao[]" class="form-control" placeholder="Descrição" required>
+                                    <input type="text" name="${tipo}Descricao[]" class="form-control" placeholder="Descrição" required>
                                 </div>
                                 <div class="col-md-6">
-                                    <input type="number" name="${tipo}_carga_horaria[]" step="0.5" class="form-control" placeholder="Carga Horária" required>
+                                    <input type="number" name="${tipo}CargaHoraria[]" step="0.5" class="form-control" placeholder="Carga Horária" required>
                                 </div>
                                 <div class="col-md-12 mt-2">
                                     <button type="button" class="btn btn-remove" onclick="removeItem('${tipo}-${atividadeId}')">Remover Atividade</button>

@@ -7,5 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class InfoPessoais extends Model
 {
-    use HasFactory;
+    protected $table = 'info_pessoais';
+    protected $fillable = [
+        'categoria',
+        'regime',
+        'plano_id'
+    ];
 }

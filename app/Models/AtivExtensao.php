@@ -7,5 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class AtivExtensao extends Model
 {
-    use HasFactory;
+    protected $table = 'ativ_extensao';
+    protected $fillable = [
+        'descricao',
+        'carga_horaria',
+        'plano_id'
+    ];
 }

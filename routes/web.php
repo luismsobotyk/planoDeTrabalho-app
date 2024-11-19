@@ -24,5 +24,6 @@ Route::middleware([CheckIsLogged::class])->group(function () {
 
     Route::get('/meusPlanos', [PlanoController::class, 'meusPlanos'])->name('meusPlanos');
     Route::get('/meusPlanos/preencher/{plano_id}', [PlanoController::class, 'preencher'])->name('preencher');
+    Route::post('/meusPlanos/preencher/{plano_id}/create', [PlanoController::class, 'create'])->name('plano.create');
 });
 

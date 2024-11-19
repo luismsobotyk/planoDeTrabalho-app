@@ -7,5 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Aula extends Model
 {
-    use HasFactory;
+    protected $table = 'aula';
+    protected $fillable = [
+        'disciplina',
+        'curso',
+        'carga_horaria',
+        'plano_id'
+    ];
 }

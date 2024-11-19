@@ -7,5 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class AtivEnsino extends Model
 {
-    use HasFactory;
+    protected $table = 'ativ_ensino';
+    protected $fillable = [
+        'descricao',
+        'carga_horaria',
+        'plano_id'
+    ];
 }
