@@ -131,9 +131,14 @@
 
 @section('other-js-assets')
     <script>
+
+        function geraId(){
+            return Math.floor(Date.now()*(Math.random() * (999999 - 10000 + 1)) + 10000);
+        }
+
         function addAula(disciplina = '', curso = '', ch = '') {
             const container = document.getElementById('aulas-container');
-            const aulaId = Date.now();
+            const aulaId = geraId();
             const aula = `<div class="row mb-3" id="aula-${aulaId}">
                             <div class="col-md-4">
                                 <input type="text" name="aulasDisciplinas[]" class="form-control" placeholder="Disciplina" value="${disciplina}" required>
@@ -153,7 +158,7 @@
 
         function addAtividade(tipo, descricao = '',  portaria = '', ch = ''){
             const container = document.getElementById(`${tipo}-container`);
-            const atividadeId = Date.now();
+            const atividadeId = geraId()
             let atividade = '';
             if (tipo === 'adm') {
                 atividade = `<div class="row mb-3" id="${tipo}-${atividadeId}">
@@ -196,6 +201,7 @@
     {{-- Código para inserir disciplinas old, se for o caso --}}
     @foreach($plano->aulas as $aula)
         <script>
+            console.log('chamando funcao aula');
             addAula(
                 '{{ old('aulasDisciplinas.' . $loop->index, $aula->disciplina) }}',
                 '{{ old('aulasCursos.' . $loop->index, $aula->curso) }}',

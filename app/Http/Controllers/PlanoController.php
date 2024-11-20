@@ -127,6 +127,6 @@ class PlanoController extends Controller
             echo 'NENHUMA ATIVIDADE DE ENSINO INFORMADA';
         }
 
-        return redirect()->back()->with('success', 'Plano salvo com Sucesso!')->withInput($request->input());
+        return redirect()->back()->with('success', 'Plano salvo com Sucesso!'); //->withInput($request->input())
     }
 }
