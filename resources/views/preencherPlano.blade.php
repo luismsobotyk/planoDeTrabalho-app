@@ -56,18 +56,18 @@
                         <label for="categoria" class="form-label">Categoria</label>
                         <select id="categoria" name="categoria" class="form-select" required>
                             <option value="">Selecione</option>
-                            <option value="Magistério EBTT" {{ old('categoria') == "Magistério EBTT" ? 'selected' : '' }}>Magistério EBTT</option>
-                            <option value="Magistério ES" {{ old('categoria') == "Magistério ES" ? 'selected' : '' }}>Magistério ES</option>
+                            <option value="Magistério EBTT" {{ (old('categoria', $plano->informacoesPessoais->categoria ?? '') == "Magistério EBTT") ? 'selected' : '' }}>Magistério EBTT</option>
+                            <option value="Magistério ES" {{ (old('categoria', $plano->informacoesPessoais->categoria ?? '') == "Magistério ES") ? 'selected' : '' }}>Magistério ES</option>
                         </select>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="regime" class="form-label">Regime</label>
                         <select id="regime" name="regime" class="form-select" required>
                             <option value="">Selecione</option>
-                            <option value="20h" {{ old('regime') == "20h" ? 'selected' : '' }}>20h</option>
-                            <option value="40h" {{ old('regime') == "40h" ? 'selected' : '' }}>40h</option>
-                            <option value="Dedicação Exclusiva" {{ old('regime') == "Dedicação Exclusiva" ? 'selected' : '' }}>Dedicação Exclusiva</option>
-                            <option value="Visitante" {{ old('regime') == "Visitante" ? 'selected' : '' }}>Visitante</option>
+                            <option value="20h" {{ (old('regime', $plano->informacoesPessoais->regime ?? '') == "20h") ? 'selected' : '' }}>20h</option>
+                            <option value="40h" {{ (old('regime', $plano->informacoesPessoais->regime ?? '') == "40h") ? 'selected' : '' }}>40h</option>
+                            <option value="Dedicação Exclusiva" {{ (old('regime', $plano->informacoesPessoais->regime ?? '') == "Dedicação Exclusiva") ? 'selected' : '' }}>Dedicação Exclusiva</option>
+                            <option value="Visitante" {{ (old('regime', $plano->informacoesPessoais->regime ?? '') == "Visitante") ? 'selected' : '' }}>Visitante</option>
                         </select>
                     </div>
                 </div>
@@ -194,20 +194,20 @@
         }
     </script>
     {{-- Código para inserir disciplinas old, se for o caso --}}
-    @if(old('aulasDisciplinas'))
-        @php
-            $disciplinas= old('aulasDisciplinas');
-            $cursos= old('aulasCursos');
-            $aulas_ch= old('aulasCargasHorarias');
-        @endphp
-        @for($i = 0; $i < count($disciplinas); $i++)
-            <script>addAula('{{ $disciplinas[$i] }}','{{ $cursos[$i] }}','{{ $aulas_ch[$i] }}');</script>
-        @endfor
-    @endif
+    @foreach($plano->aulas as $aula)
+        <script>
+            addAula(
+                '{{ old('aulasDisciplinas.' . $loop->index, $aula->disciplina) }}',
+                '{{ old('aulasCursos.' . $loop->index, $aula->curso) }}',
+                '{{ old('aulasCargasHorarias.' . $loop->index, $aula->carga_horaria) }}'
+            );
+        </script>
+    @endforeach
 
-    <x-atividades tipo="adm" />
-    <x-atividades tipo="ext" />
-    <x-atividades tipo="pesquisa" />
-    <x-atividades tipo="ensino" />
+    <x-atividades tipo="adm" :plano="$plano" />
+    <x-atividades tipo="ext" :plano="$plano" />
+    <x-atividades tipo="pesquisa" :plano="$plano" />
+    <x-atividades tipo="ensino" :plano="$plano" />
+
 
 @endsection
