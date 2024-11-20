@@ -6,6 +6,7 @@ use App\Http\Controllers\PeriodoController;
 use App\Http\Controllers\PlanoController;
 use App\Http\Middleware\CheckIsLogged;
 use App\Http\Middleware\CheckIsNotLogged;
+use App\Http\Middleware\CheckIfUserOwnPlan;
 use Illuminate\Support\Facades\Route;
 
 // auth routes
@@ -23,7 +24,9 @@ Route::middleware([CheckIsLogged::class])->group(function () {
     Route::post('/periodos/create', [PeriodoController::class, 'periodoCreate'])->name('periodos.create');
 
     Route::get('/meusPlanos', [PlanoController::class, 'meusPlanos'])->name('meusPlanos');
-    Route::get('/meusPlanos/preencher/{plano_id}', [PlanoController::class, 'preencher'])->name('preencher');
-    Route::post('/meusPlanos/preencher/{plano_id}/create', [PlanoController::class, 'create'])->name('plano.create');
+    Route::middleware([CheckIfUserOwnPlan::class])->group(function () {
+        Route::get('/meusPlanos/preencher/{plano_id}', [PlanoController::class, 'preencher'])->name('preencher');
+        Route::post('/meusPlanos/preencher/{plano_id}/create', [PlanoController::class, 'create'])->name('plano.create');
+    });
 });
 
