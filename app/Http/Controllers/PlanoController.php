@@ -25,6 +25,11 @@ class PlanoController extends Controller
     }
 
     public function create(Request $request){
+        $request->validate([
+            'categoria' => '',
+            'regime' => ''
+        ]);
+
         // RECUPERA INFO DAS AULAS
         $aulasDisciplinas = $request->input('aulasDisciplinas');
         $aulasCursos = $request->input('aulasCursos');
@@ -122,6 +127,6 @@ class PlanoController extends Controller
             echo 'NENHUMA ATIVIDADE DE ENSINO INFORMADA';
         }
 
-        return redirect()->back()->with('success', 'Plano salvo com Sucesso!');
+        return redirect()->back()->with('success', 'Plano salvo com Sucesso!')->withInput($request->input());
     }
 }

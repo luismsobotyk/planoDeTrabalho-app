@@ -56,18 +56,18 @@
                         <label for="categoria" class="form-label">Categoria</label>
                         <select id="categoria" name="categoria" class="form-select" required>
                             <option value="">Selecione</option>
-                            <option value="Magistério EBTT">Magistério EBTT</option>
-                            <option value="Magistério ES">Magistério ES</option>
+                            <option value="Magistério EBTT" {{ old('categoria') == "Magistério EBTT" ? 'selected' : '' }}>Magistério EBTT</option>
+                            <option value="Magistério ES" {{ old('categoria') == "Magistério ES" ? 'selected' : '' }}>Magistério ES</option>
                         </select>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="regime" class="form-label">Regime</label>
                         <select id="regime" name="regime" class="form-select" required>
                             <option value="">Selecione</option>
-                            <option value="20h">20h</option>
-                            <option value="40h">40h</option>
-                            <option value="Dedicação Exclusiva">Dedicação Exclusiva</option>
-                            <option value="Visitante">Visitante</option>
+                            <option value="20h" {{ old('regime') == "20h" ? 'selected' : '' }}>20h</option>
+                            <option value="40h" {{ old('regime') == "40h" ? 'selected' : '' }}>40h</option>
+                            <option value="Dedicação Exclusiva" {{ old('regime') == "Dedicação Exclusiva" ? 'selected' : '' }}>Dedicação Exclusiva</option>
+                            <option value="Visitante" {{ old('regime') == "Visitante" ? 'selected' : '' }}>Visitante</option>
                         </select>
                     </div>
                 </div>
@@ -131,18 +131,18 @@
 
 @section('other-js-assets')
     <script>
-        function addAula() {
+        function addAula(disciplina = '', curso = '', ch = '') {
             const container = document.getElementById('aulas-container');
             const aulaId = Date.now();
             const aula = `<div class="row mb-3" id="aula-${aulaId}">
                             <div class="col-md-4">
-                                <input type="text" name="aulasDisciplinas[]" class="form-control" placeholder="Disciplina" required>
+                                <input type="text" name="aulasDisciplinas[]" class="form-control" placeholder="Disciplina" value="${disciplina}" required>
                             </div>
                             <div class="col-md-4">
-                                <input type="text" name="aulasCursos[]" class="form-control" placeholder="Curso" required>
+                                <input type="text" name="aulasCursos[]" class="form-control" placeholder="Curso" value="${curso}" required>
                             </div>
                             <div class="col-md-4">
-                                <input type="number" name="aulasCargasHorarias[]" step="0.5" class="form-control" placeholder="Carga Horária" required>
+                                <input type="number" name="aulasCargasHorarias[]" step="0.5" class="form-control" placeholder="Carga Horária" value="${ch}" required>
                             </div>
                             <div class="col-md-12 mt-2">
                                 <button type="button" class="btn btn-remove" onclick="removeItem('aula-${aulaId}')">Remover Aula</button>
@@ -151,20 +151,20 @@
             container.insertAdjacentHTML('beforeend', aula);
         }
 
-        function addAtividade(tipo) {
+        function addAtividade(tipo, descricao = '',  portaria = '', ch = ''){
             const container = document.getElementById(`${tipo}-container`);
             const atividadeId = Date.now();
             let atividade = '';
             if (tipo === 'adm') {
                 atividade = `<div class="row mb-3" id="${tipo}-${atividadeId}">
                                 <div class="col-md-4">
-                                    <input type="text" name="${tipo}Descricao[]" class="form-control" placeholder="Descrição" required>
+                                    <input type="text" name="${tipo}Descricao[]" class="form-control" placeholder="Descrição" value="${descricao}" required>
                                 </div>
                                 <div class="col-md-4">
-                                    <input type="text" name="${tipo}Portaria[]" pattern="^\\d+/\\d{4}$" class="form-control" placeholder="Portaria (Ex: 1234/2024)" required>
+                                    <input type="text" name="${tipo}Portaria[]" pattern="^\\d+/\\d{4}$" class="form-control" placeholder="Portaria (Ex: 1234/2024)" value="${portaria}" required>
                                 </div>
                                 <div class="col-md-4">
-                                    <input type="number" name="${tipo}CargaHoraria[]" step="0.5" class="form-control" placeholder="Carga Horária" required>
+                                    <input type="number" name="${tipo}CargaHoraria[]" step="0.5" class="form-control" placeholder="Carga Horária" value="${ch}" required>
                                 </div>
                                 <div class="col-md-12 mt-2">
                                     <button type="button" class="btn btn-remove" onclick="removeItem('${tipo}-${atividadeId}')">Remover Atividade</button>
@@ -173,10 +173,10 @@
             } else {
                 atividade = `<div class="row mb-3" id="${tipo}-${atividadeId}">
                                 <div class="col-md-6">
-                                    <input type="text" name="${tipo}Descricao[]" class="form-control" placeholder="Descrição" required>
+                                    <input type="text" name="${tipo}Descricao[]" class="form-control" placeholder="Descrição" value="${descricao}" required>
                                 </div>
                                 <div class="col-md-6">
-                                    <input type="number" name="${tipo}CargaHoraria[]" step="0.5" class="form-control" placeholder="Carga Horária" required>
+                                    <input type="number" name="${tipo}CargaHoraria[]" step="0.5" class="form-control" placeholder="Carga Horária" value="${ch}" required>
                                 </div>
                                 <div class="col-md-12 mt-2">
                                     <button type="button" class="btn btn-remove" onclick="removeItem('${tipo}-${atividadeId}')">Remover Atividade</button>
@@ -193,4 +193,21 @@
             }
         }
     </script>
+    {{-- Código para inserir disciplinas old, se for o caso --}}
+    @if(old('aulasDisciplinas'))
+        @php
+            $disciplinas= old('aulasDisciplinas');
+            $cursos= old('aulasCursos');
+            $aulas_ch= old('aulasCargasHorarias');
+        @endphp
+        @for($i = 0; $i < count($disciplinas); $i++)
+            <script>addAula('{{ $disciplinas[$i] }}','{{ $cursos[$i] }}','{{ $aulas_ch[$i] }}');</script>
+        @endfor
+    @endif
+
+    <x-atividades tipo="adm" />
+    <x-atividades tipo="ext" />
+    <x-atividades tipo="pesquisa" />
+    <x-atividades tipo="ensino" />
+
 @endsection
