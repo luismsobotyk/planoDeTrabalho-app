@@ -44,6 +44,11 @@
                 {{ session('success') }}
             </div>
         @endif
+        @if(session('error'))
+            <div class="alert alert-danger text-center" role="alert">
+                {{ session('error') }}
+            </div>
+        @endif
         <!-- Formulário -->
         <form method="POST" action="{{ route('plano.create', ['plano_id' => $plano->id]) }}">
             @csrf
