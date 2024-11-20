@@ -38,7 +38,6 @@
 @section('content')
 
     <div class="container mt-5">
-        <h2>Preenchendo Plano de Trabalho {{ $plano->periodo->semestre }}</h2>
         @if(session('success'))
             <div class="alert alert-success" role="alert">
                 {{ session('success') }}
@@ -49,9 +48,13 @@
                 {{ session('error') }}
             </div>
         @endif
+
+        <h2>Preenchendo Plano de Trabalho {{ $plano->periodo->semestre }}</h2>
+
         <!-- Formulário -->
         <form method="POST" action="{{ route('plano.create', ['plano_id' => $plano->id]) }}">
             @csrf
+            <input type="hidden" id="action_route" name="action_route" value="{{ route('plano.create', ['plano_id' => $plano->id]) }}">
 
             <!-- Informações Pessoais -->
             <div class="form-section">
@@ -125,8 +128,8 @@
 
             <!-- Botões de Ação -->
             <div class="mt-4">
-                <button type="submit" class="btn btn-success w-100">Salvar</button>
-                <button type="button" class="btn btn-primary w-100 mt-2">Enviar para Avaliação</button>
+                <<button type="button" class="btn btn-success w-100" onclick="submitForm('{{ route('plano.create', ['plano_id' => $plano->id]) }}')">Salvar</button>
+                <button type="button" class="btn btn-primary w-100 mt-2" onclick="submitForm('{{ route('plano.submitForReview', ['plano_id' => $plano->id]) }}')">Enviar para Avaliação</button>
             </div>
             <input type="hidden" name="plano_id" value="{{ $plano->id }}">
         </form>
@@ -202,6 +205,15 @@
                 item.remove();
             }
         }
+        function submitForm(actionUrl) {
+            const form = document.querySelector('form');
+            document.getElementById('action_route').value = actionUrl;
+            form.action = actionUrl;
+            form.submit();
+        }
+
+    </script>
+
     </script>
     {{-- Código para inserir disciplinas old, se for o caso --}}
     @foreach($plano->aulas as $aula)

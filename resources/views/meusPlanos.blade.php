@@ -35,6 +35,11 @@
 
     <!-- Tabela de Listagem de Planos -->
     <div class="container table-container">
+        @if(session('success'))
+            <div class="alert alert-success" role="alert">
+                {{ session('success') }}
+            </div>
+        @endif
         <h2>Listagem de Planos</h2>
         <table class="table table-striped">
             <thead>

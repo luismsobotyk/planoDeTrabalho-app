@@ -123,7 +123,15 @@ class PlanoController extends Controller
                 }
             }
 
-            DB::commit(); // Confirma a transação
+            if($request->route()->getName()=='plano.submitForReview'){
+                Plano::where('id', $request->input('plano_id'))->update([
+                    'situacao' => 'Entregue'
+                ]);
+            }
+            DB::commit();
+            if($request->route()->getName()=='plano.submitForReview'){
+                return redirect()->route('meusPlanos')->with('success', 'Plano entregue com sucesso!');
+            }
             return redirect()->back()->with('success', 'Plano salvo com sucesso!');
         } catch (\Exception $e) {
             DB::rollBack();
