@@ -15,6 +15,12 @@ class Plano extends Model
         'revisado_por'
     ];
 
+    protected static function booted(){
+        static::addGlobalScope('orderByPeriodo', function ($query) {
+            $query->orderBy('periodo_id', 'desc');
+        });
+    }
+
     public function periodo(){
         return $this->belongsTo(Periodo::class);
     }
