@@ -7,6 +7,7 @@ use App\Models\AtivEnsino;
 use App\Models\AtivExtensao;
 use App\Models\AtivPesquisa;
 use App\Models\Aula;
+use App\Models\Comentario;
 use App\Models\InfoPessoais;
 use App\Models\Periodo;
 use App\Models\Plano;
@@ -144,7 +145,7 @@ class PlanoController extends Controller
 
     public function viewPlano($id){
         $plano = Plano::with(['periodo', 'informacoesPessoais', 'aulas', 'atividadesAdministrativas', 'atividadesEnsino', 'atividadesPesquisa', 'atividadesExtensao'])->find($id);
-        return view('verMeuPlano', compact('plano'));
+        return view('verPlano', compact('plano'));
     }
 
     public function listaPlanos($semestre = null){
@@ -162,4 +163,34 @@ class PlanoController extends Controller
         }
         return view('admin.planos', compact('planos', 'periodos', 'semestre'));
     }
+
+    public function planoRevisar($plano_id){
+        $plano = Plano::with(['comentario', 'usuario', 'periodo', 'informacoesPessoais', 'aulas', 'atividadesAdministrativas', 'atividadesEnsino', 'atividadesPesquisa', 'atividadesExtensao'])->find($plano_id);
+        return view('admin.revisarPlano', compact('plano'));
+    }
+
+    public function planoReprovar($plano_id, Request $request){
+        $request->validate([
+            'comentarios' => 'required'
+        ],
+        [
+            'comentarios.required' => 'É obrigatório inserir algum comentário.'
+        ]);
+        Comentario::where('plano_id', $plano_id)->where('resolvido', false)->update(['resolvido' =>  true]);
+        Comentario::create([
+            'plano_id' => $plano_id,
+            'texto' => $request->input('comentarios'),
+            'cadastrado_por' => session('user.login'),
+            'resolvido' => false
+        ]);
+        Plano::where('id', $plano_id)->update(['situacao' => 'Ajustes Necessários']);
+        return redirect()->back()->with('success', 'Plano enviado para correção.');
+    }
+
+    public function planoAprovar($plano_id){
+        Comentario::where('plano_id', $plano_id)->where('resolvido', false)->update(['resolvido' =>  true]);
+        Plano::where('id', $plano_id)->update(['situacao' => 'Publicado']);
+        return redirect()->back()->with('success', 'Plano aprovado com sucesso.');
+    }
+
 }

@@ -51,4 +51,10 @@ class Plano extends Model
     public function atividadesPesquisa(){
         return $this->hasMany(AtivPesquisa::class, 'plano_id');
     }
+    public function comentarios(){
+        return $this->hasMany(Comentario::class, 'plano_id');
+    }
+    public function comentario(){
+        return $this->hasOne(Comentario::class, 'plano_id')->where('resolvido', false)->latest();
+    }
 }

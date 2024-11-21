@@ -23,6 +23,9 @@ Route::middleware([CheckIsLogged::class])->group(function () {
     Route::get('/periodos', [PeriodoController::class, 'periodos'])->name('periodos');
     Route::post('/periodos/create', [PeriodoController::class, 'periodoCreate'])->name('periodos.create');
     Route::get('/planos/{semestre?}', [PlanoController::class, 'listaPlanos'])->name('planos');
+    Route::get('/planos/revisao/{plano_id}', [PlanoController::class, 'planoRevisar'])->name('planos.revisar');
+    Route::post('/planos/revisao/{plano_id}/reprovar', [PlanoController::class, 'planoReprovar'])->name('plano.reprovar');
+    Route::post('/planos/revisao/{plano_id}/aprovar', [PlanoController::class, 'planoAprovar'])->name('plano.aprovar');
 
     Route::get('/meusPlanos', [PlanoController::class, 'meusPlanos'])->name('meusPlanos');
     Route::middleware([CheckIfUserOwnPlan::class])->group(function () {
