@@ -10,3 +10,6 @@ body {
 .navbar .nav-link:hover {
     color: #c72027;
 }
+.bg-orange {
+    background-color: #fd7e14 !important;
+}

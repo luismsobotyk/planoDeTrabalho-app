@@ -57,11 +57,24 @@
             @else
                 @foreach($planos as $plano)
                     <tr>
-                        <td>{{ $plano->periodo->semestre }}</td>
-                        <td>{{ $plano->situacao }}</td>
+                        <td>
+                            {{ $plano->periodo->semestre }}
+                        </td>
+                        <td>
+                            <span class="badge
+                                @if($plano->situacao == 'Publicado') bg-success
+                                @elseif($plano->situacao == 'Em Revisão') bg-warning text-dark
+                                @elseif($plano->situacao == 'Ajustes Necessários') bg-danger
+                                @elseif($plano->situacao == 'Pendente') bg-orange text-dark
+                                @else bg-secondary @endif">
+                                {{ $plano->situacao }}
+                            </span>
+                        </td>
                         <td>
                             @if($plano->situacao == 'Pendente')
                                 <a href="{{ route('preencher', ['plano_id' => $plano->id]) }}" class="btn btn-preencher">Preencher</a>
+                            @elseif($plano->situacao == 'Em Revisão')
+                                <a href="{{ route('plano.view', ['plano_id' => $plano->id]) }}" class="btn btn-visualizar">Visualizar</a>
                             @else
                                 <a href="#" class="btn btn-visualizar">Visualizar</a>
                             @endif

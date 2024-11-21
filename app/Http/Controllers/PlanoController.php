@@ -26,8 +26,7 @@ class PlanoController extends Controller
         return view('preencherPlano', compact('plano'));
     }
 
-    public function create(Request $request)
-    {
+    public function create(Request $request){
         $request->validate([
             'categoria' => '',
             'regime' => ''
@@ -125,7 +124,11 @@ class PlanoController extends Controller
 
             if($request->route()->getName()=='plano.submitForReview'){
                 Plano::where('id', $request->input('plano_id'))->update([
-                    'situacao' => 'Entregue'
+                    'situacao' => 'Em Revisão'
+                ]);
+            }else{
+                Plano::where('id', $request->input('plano_id'))->update([
+                    'situacao' => 'Pendente'
                 ]);
             }
             DB::commit();
@@ -137,5 +140,10 @@ class PlanoController extends Controller
             DB::rollBack();
             return redirect()->back()->with('error', 'Erro ao salvar o plano. Contate o admin!');
         }
+    }
+
+    public function viewPlano($id){
+        $plano = Plano::with(['periodo', 'informacoesPessoais', 'aulas', 'atividadesAdministrativas', 'atividadesEnsino', 'atividadesPesquisa', 'atividadesExtensao'])->find($id);
+        return view('verMeuPlano', compact('plano'));
     }
 }

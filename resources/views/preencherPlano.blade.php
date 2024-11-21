@@ -2,7 +2,7 @@
 @extends('layouts.main_layout')
 
 @section('title')
-    <title>Preenchendo Plano de Trabalho 2024/2</title>
+    <title>Preenchendo Plano de Trabalho {{ $plano->periodo->semestre }}</title>
 @endsection
 
 @section('other-css-assets')
@@ -128,7 +128,7 @@
 
             <!-- Botões de Ação -->
             <div class="mt-4">
-                <<button type="button" class="btn btn-success w-100" onclick="submitForm('{{ route('plano.create', ['plano_id' => $plano->id]) }}')">Salvar</button>
+                <button type="button" class="btn btn-success w-100" onclick="submitForm('{{ route('plano.create', ['plano_id' => $plano->id]) }}')">Salvar</button>
                 <button type="button" class="btn btn-primary w-100 mt-2" onclick="submitForm('{{ route('plano.submitForReview', ['plano_id' => $plano->id]) }}')">Enviar para Avaliação</button>
             </div>
             <input type="hidden" name="plano_id" value="{{ $plano->id }}">

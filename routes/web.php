@@ -28,6 +28,8 @@ Route::middleware([CheckIsLogged::class])->group(function () {
         Route::get('/meusPlanos/preencher/{plano_id}', [PlanoController::class, 'preencher'])->name('preencher');
         Route::post('/meusPlanos/preencher/{plano_id}/create', [PlanoController::class, 'create'])->name('plano.create');
         Route::post('/meusPlanos/preencher/{plano_id}/submit', [PlanoController::class, 'create'])->name('plano.submitForReview');
+
+        Route::get('/meusPlanos/visualizar/{plano_id}', [PlanoController::class, 'viewPlano'])->name('plano.view');
     });
 });
 
