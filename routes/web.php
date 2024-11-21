@@ -22,6 +22,7 @@ Route::middleware([CheckIsLogged::class])->group(function () {
     //Check Authorization
     Route::get('/periodos', [PeriodoController::class, 'periodos'])->name('periodos');
     Route::post('/periodos/create', [PeriodoController::class, 'periodoCreate'])->name('periodos.create');
+    Route::get('/planos/{semestre?}', [PlanoController::class, 'listaPlanos'])->name('planos');
 
     Route::get('/meusPlanos', [PlanoController::class, 'meusPlanos'])->name('meusPlanos');
     Route::middleware([CheckIfUserOwnPlan::class])->group(function () {
@@ -31,5 +32,6 @@ Route::middleware([CheckIsLogged::class])->group(function () {
 
         Route::get('/meusPlanos/visualizar/{plano_id}', [PlanoController::class, 'viewPlano'])->name('plano.view');
     });
+
 });
 

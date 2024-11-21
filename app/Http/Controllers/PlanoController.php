@@ -146,4 +146,20 @@ class PlanoController extends Controller
         $plano = Plano::with(['periodo', 'informacoesPessoais', 'aulas', 'atividadesAdministrativas', 'atividadesEnsino', 'atividadesPesquisa', 'atividadesExtensao'])->find($id);
         return view('verMeuPlano', compact('plano'));
     }
+
+    public function listaPlanos($semestre = null){
+        $periodos= Periodo::all();
+        if(!$semestre==null && preg_match('/^\d{5}$/', $semestre)){
+            $semestre = substr($semestre, 0, 4) . '/' . substr($semestre, 4, 1);
+            $planos = Plano::whereHas('periodo', function ($query) use ($semestre) {
+                $query->where('semestre', $semestre);
+            })->with(['periodo', 'usuario'])->get();
+        }else if($semestre == null){
+            $planos = Plano::where('periodo_id', $periodos[0]->id)->get();
+            $semestre = $periodos[0]->semestre;
+        }else{
+            abort(400, 'Semestre inválido');
+        }
+        return view('admin.planos', compact('planos', 'periodos', 'semestre'));
+    }
 }

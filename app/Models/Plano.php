@@ -25,6 +25,14 @@ class Plano extends Model
         return $this->belongsTo(Periodo::class);
     }
 
+    public function usuario(){
+        return $this->belongsTo(Usuario::class, 'docente_id', 'login');
+    }
+
+    public function revisado_por(){
+        return $this->belongsTo(Usuario::class, 'revisado_por', 'login');
+    }
+
     public function informacoesPessoais(){
         return $this->hasOne(InfoPessoais::class, 'plano_id');
     }
