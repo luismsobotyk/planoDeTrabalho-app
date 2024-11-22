@@ -50,6 +50,22 @@
         @endif
 
         <h2>Preenchendo Plano de Trabalho {{ $plano->periodo->semestre }}</h2>
+            <span class="badge
+            @if($plano->situacao == 'Publicado') bg-success
+            @elseif($plano->situacao == 'Em Revisão') bg-warning text-dark
+            @elseif($plano->situacao == 'Ajustes Necessários') bg-danger
+            @elseif($plano->situacao == 'Pendente') bg-orange text-dark
+            @else bg-secondary @endif">
+            {{ $plano->situacao }}
+        </span>
+
+            @if($plano->situacao=='Ajustes Necessários')
+                <div class="mb-3 mt-3">
+                    <label for="comentarios" class="form-label">Comentários de {{ $plano->comentario->usuario->nome }}:</label>
+                    <textarea class="form-control" name="comentarios" id="comentarios" rows="3" disabled>{{ $plano->comentario->texto }}</textarea>
+                </div>
+            @endif
+
 
         <!-- Formulário -->
         <form method="POST" action="{{ route('plano.create', ['plano_id' => $plano->id]) }}">

@@ -75,6 +75,8 @@
                                 <a href="{{ route('preencher', ['plano_id' => $plano->id]) }}" class="btn btn-preencher">Preencher</a>
                             @elseif($plano->situacao == 'Em Revisão')
                                 <a href="{{ route('plano.view', ['plano_id' => $plano->id]) }}" class="btn btn-visualizar">Visualizar</a>
+                            @elseif($plano->situacao == 'Ajustes Necessários')
+                                <a href="{{ route('preencher', ['plano_id' => $plano->id]) }}" class="btn btn-preencher">Revisar</a>
                             @else
                                 <a href="#" class="btn btn-visualizar">Visualizar</a>
                             @endif

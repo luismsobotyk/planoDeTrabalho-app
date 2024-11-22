@@ -14,4 +14,8 @@ class Comentario extends Model
         'cadastrado_por',
         'plano_id'
     ];
+
+    public function usuario(){
+        return $this->belongsTo(Usuario::class, 'cadastrado_por', 'login');
+    }
 }

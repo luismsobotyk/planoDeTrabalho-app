@@ -23,7 +23,7 @@ class PlanoController extends Controller
     }
 
     public function preencher($id){
-        $plano = Plano::with(['periodo', 'informacoesPessoais', 'aulas', 'atividadesAdministrativas', 'atividadesEnsino', 'atividadesPesquisa', 'atividadesExtensao'])->find($id);
+        $plano = Plano::with(['comentario.usuario', 'periodo', 'informacoesPessoais', 'aulas', 'atividadesAdministrativas', 'atividadesEnsino', 'atividadesPesquisa', 'atividadesExtensao'])->find($id);
         return view('preencherPlano', compact('plano'));
     }
 
@@ -134,6 +134,7 @@ class PlanoController extends Controller
             }
             DB::commit();
             if($request->route()->getName()=='plano.submitForReview'){
+                Comentario::where('plano_id', $request->input('plano_id'))->where('resolvido', false)->update(['resolvido' =>  true]);
                 return redirect()->route('meusPlanos')->with('success', 'Plano entregue com sucesso!');
             }
             return redirect()->back()->with('success', 'Plano salvo com sucesso!');
