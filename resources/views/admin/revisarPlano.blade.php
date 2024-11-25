@@ -46,7 +46,8 @@
             {{ $plano->situacao }}
         </span>
         <br>
-        <form id="planoForm" method="POST" action="{{ route('plano.reprovar', ['plano_id' => $plano->id]) }}">
+        @if($plano->situacao != 'Publicado')
+            <form id="planoForm" method="POST" action="{{ route('plano.reprovar', ['plano_id' => $plano->id]) }}">
             @csrf
             <div class="mb-3 mt-3">
                 <label for="comentarios" class="form-label">Comentários:</label>
@@ -69,6 +70,7 @@
                 </button>
             </div>
         </form>
+            @endif
 
         <p class="text-end fst-italic">Última modificação: {{ $plano->updated_at->format('d/m/Y H:i:s')  }}</p>
 

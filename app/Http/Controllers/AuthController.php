@@ -43,6 +43,9 @@ class AuthController extends Controller
             ]
         ]);
 
+        if(session('user.cargo')=='admin'){
+            return redirect()->to('planos');
+        }
         return redirect()->to('meusPlanos');
     }
 

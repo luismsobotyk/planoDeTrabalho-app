@@ -75,6 +75,8 @@
                                 <a href="{{ route('planos.revisar', ['plano_id'  => $plano->id]) }}" class="btn btn-revisar">Revisar</a>
                             @elseif($plano->situacao == 'Ajustes Necessários')
                                 <a href="{{ route('planos.revisar', ['plano_id'  => $plano->id]) }}" class="btn btn-revisar">Visualizar</a>
+                            @elseif($plano->situacao == 'Publicado')
+                                <a href="{{ route('planos.revisar', ['plano_id'  => $plano->id]) }}" class="btn btn-revisar">Visualizar</a>
                             @endif
                         </td>
                     </tr>

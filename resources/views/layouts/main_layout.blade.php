@@ -11,7 +11,11 @@
     @yield('other-css-assets')
 </head>
 <body>
-@include('layouts.nav-client')
+@if(session('user.cargo')=='admin')
+    @include('layouts.nav-admin')
+@else
+    @include('layouts.nav-client')
+@endif
 
 <div class="content-wrapper">
     @yield('content')

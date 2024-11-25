@@ -8,7 +8,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('meusPlanos') }}">Meus Planos</a>
+                    <a class="nav-link" href="{{ route('planos') }}">Ver Planos</a>
                 </li>
                 <!--li class="nav-item">
                     <a class="nav-link" href="#">Notificações</a>
