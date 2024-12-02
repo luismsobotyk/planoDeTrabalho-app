@@ -12,10 +12,10 @@
                 </li>
                 <!--li class="nav-item">
                     <a class="nav-link" href="#">Notificações</a>
-                </li-->
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('periodos') }}">Períodos</a>
-                </li>
+                </li-->
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('logout') }}">Logout</a>
                 </li>
